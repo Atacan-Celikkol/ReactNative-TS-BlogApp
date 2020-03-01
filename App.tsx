@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import React from 'react';
-import { BlogProvider } from "./context/BlogPostContext";
+import { Provider as BlogProvider } from "./context/BlogPostContext";
 import { navigationRef } from './RootNavigation';
-import IndexScreen from './screens/IndexScreen';
+import BlogPostCreateScreen from './screens/BlogPostCreateScreen';
+import BlogPostDetailScreen from './screens/BlogPostDetailScreen';
+import IndexScreen, { navigationOptions } from './screens/IndexScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +14,9 @@ export default function App() {
         <BlogProvider>
             <NavigationContainer ref={navigationRef}>
                 <Stack.Navigator>
-                    <Stack.Screen name="Index" component={IndexScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="Index" component={IndexScreen} options={navigationOptions} />
+                    <Stack.Screen name="BlogPostDetail" component={BlogPostDetailScreen} />
+                    <Stack.Screen name="BlogPostCreate" component={BlogPostCreateScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </BlogProvider>
