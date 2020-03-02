@@ -6,15 +6,19 @@ export interface BlogPost {
    content: string;
 }
 
-
 const blogReducer = (state: BlogPost[], action: { type: string, payload: any; }) => {
    switch (action.type) {
       case 'add':
          const id = Math.floor(Math.random() * 999).toString();
          return [...state, { id: id, title: action.payload.title, content: action.payload.content }];
 
+      case 'edit':
+         return state.map(x => {
+            return x.id === action.payload.id
+               ? action.payload : x;
+         });
+
       case 'delete':
-         console.log(action.payload);
          return state.filter((blogPost) => blogPost.id != action.payload);
 
       default:
@@ -27,8 +31,14 @@ const addBlogPost = (dispatch) => {
       callback();
    };
 };
+const editBlogPost = (dispatch) => {
+   return (item, callback) => {
+      dispatch({ type: 'edit', payload: item });
+      callback();
+   };
+};
 const deleteBlogPost = (dispatch) => {
    return (item) => dispatch({ type: 'delete', payload: item });
 };
 
-export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, deleteBlogPost }, []);
+export const { Context, Provider } = createDataContext(blogReducer, { addBlogPost, editBlogPost, deleteBlogPost }, []);

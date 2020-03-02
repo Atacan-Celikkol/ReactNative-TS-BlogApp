@@ -28,6 +28,9 @@ export default function IndexScreen({ navigation }) {
 export const navigationOptions = ({ navigation }): StackNavigationOptions => {
     return {
         headerShown: true,
+        headerStyle: styles.header,
+        headerTintColor: 'white',
+        headerTitleAlign: 'center',
         headerRight: () => <TouchableOpacity onPress={() => navigation.navigate('BlogPostCreate')}>
             <Feather name="plus" size={30} style={styles.headerIcon} />
         </TouchableOpacity>
@@ -35,6 +38,9 @@ export const navigationOptions = ({ navigation }): StackNavigationOptions => {
 };
 
 const styles = StyleSheet.create({
+    header: {
+        backgroundColor: '#222',
+    },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -50,6 +56,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     headerIcon: {
-        marginRight: 10
+        marginRight: 10,
+        color: 'white'
     }
 });

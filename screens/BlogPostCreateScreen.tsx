@@ -1,20 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import BlogPostFormComponent from '../components/BlogPostFromComponent';
 import { Context } from '../context/BlogPostContext';
 
 export default function BlogPostCreateScreen({ navigation }) {
-   const [title, setTitle] = useState('');
-   const [content, setContent] = useState('');
-   const { addBlogPost } = useContext(Context);
+   const { addBlogPost } = React.useContext(Context);
 
-   return <View style={styles.container}>
-      <Text style={styles.inputText}>Title</Text>
-      <TextInput style={styles.input} onChangeText={text => setTitle(text)} />
-      <Text style={styles.inputText}>Content</Text>
-      <TextInput style={styles.input} onChangeText={text => setContent(text)} />
-      <Button color='#3a3' title='Save' onPress={() => addBlogPost({ title, content }, () => navigation.navigate('Index'))} />
-   </View>;
+   const add = (title, content) => {
+      addBlogPost({ title, content }, () => navigation.pop());
+   };
+
+   return <BlogPostFormComponent callback={(title, content) => add(title, content)} />;
 }
 
 const styles = StyleSheet.create({
